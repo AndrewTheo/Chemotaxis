@@ -1,76 +1,76 @@
-//declare bacteria variables here  
-Bacteria [] colony = new Bacteria[10];
-
-
-
-int walkDir;
- 
-
- void setup()   
- {     
-   //initialize bacteria variables here   
-   size(400,400);
+Bacteria [] colony = new Bacteria[5];
+int foodX, foodY;
+void setup()
+{
+  size(500,500);
+  background(0,0,0);
+   foodX = 250;
+   foodY= 250;
+  for(int i = 0; i < colony.length; i++)
+  {
+    colony[i] = new Bacteria();
+  }
    
-   int BacteriaColor; 
-    //x = (int)(Math.random()*300)+100;
-    //y = (int)(Math.random()*300)+100;
-    
   
-    background(0,0,0);
-    
-    for(int i = 0; i < colony.length; i++)
-    {
-      colony[i] = new Bacteria();
-    }
-    
-   
- }   
- 
- void draw()   
- {    
-   //move and show the bacteria  
-   background(0,0,0); 
+}
 
+void draw()
+{
+  background(0,0,0);
+  
   for (int i = 0; i<colony.length; i++)
   {
+    colony[i].direction();
     colony[i].move();
     colony[i].show(); 
   }
   
- 
+}
+
+class Bacteria
+{
+  int myX, myY;
+  //int foodX, foodY;
+  int walkDir;
   
-
- } 
-
- 
-
-
- class Bacteria    
- {     
-   //lots of java!
-   int myX, myY;
-   Bacteria()
-   {
+  boolean left = false;
+  boolean right = false;
+  boolean up = false;
+  boolean down = false;
+  
+  int r;
+  int g;
+  int b;
+  
+  Bacteria()
+  {
      myX = (int)(Math.random()*300)+50;
      myY = (int)(Math.random()*300)+50;
-   }
-   void move()
-   {
-     
-     //myX = myX + (int)(Math.random()*3)-1;
-     //myY = myY + (int)(Math.random()*3)-1;  
-     
-     
-     
-     
-     walkDir = (int)(Math.random()*4+1);
-     
-     
-     //System.out.println(walkDir);
-     if ((walkDir == 1) && (myX < 350))
+//     foodX = 250;
+//     foodY= 250;
+   r =  (int)(Math.random()*255);
+   g =  (int)(Math.random()*255);
+   b =  (int)(Math.random()*255);
+  }
+  void move()
+  {
+//    myX = myX + (int)(Math.random()*3)-1;
+//    myY = myY + (int)(Math.random()*3)-1; 
+
+    walkDir = (int)(Math.random()*4+1);
+    
+    if ((walkDir == 1) && (myX < 450))
      {
-       //myX = myX + (int)(Math.random()*2+1);
-       myX = myX +1;
+        if(right == false)
+       { 
+         myX = myX + (int)(Math.random()*2+1);
+       }
+       else if(right == true)
+       {
+         myX = myX + 4;
+         right = false;
+       }
+      
       
        
        
@@ -78,49 +78,114 @@ int walkDir;
      }
      else if ((walkDir == 2) && (myX > 50))
      {
-       //myX = myX - (int)(Math.random()*2+1);
-       myX = myX - 1;
+       if(left == false)
+       {
+         myX = myX - (int)(Math.random()*2+1);
+       }
+       else if(left == true)
+       {
+         myX = myX - 4;
+         left = false;
+       }
+       
+       
+    
+       
        
        
        
      }
-     else if ((walkDir == 3) && (myY < 350))
+     else if ((walkDir == 3) && (myY < 450))
      {
-       //myY = myY + (int)(Math.random()*2+1);
-       myY = myY + 1;
+      
+        if(down == false)
+       {
+         myY = myY + (int)(Math.random()*2+1);
+       }
+       else if(down == true)
+       {
+         myY = myY + 4;
+         down = false;
+       }
        
        
      
        
-       
-       
-       
+      
      }
      else if ((walkDir == 4) && (myY > 50))
      {
-       //myY = myY - (int)(Math.random()*2+1);
-       myY = myY - 1;
+   
        
        
-       
-       
-       
-       
-       
-     }
-     else
-     {
-       myX = myX;
-       myY = myY;
-     }
+         if(up == false)
+       {
+             myY = myY - (int)(Math.random()*2+1);
+       }
+       else if(up == true)
+       {
+         myY = myY - 4;
+         up = false;
+       }
 
-   }
+     }
+     
+      if((myX == foodX) && (myY == foodY))
+     {
+       //println("Move DAHH FOOOD");
+       foodX = (int)(Math.random()*300)+50;
+       foodY = (int)(Math.random()*300)+50;
+     }
+     
+     
+     
+    
+    
+  }
    void show()
    {
 
-     stroke(255,0,0);
+     stroke(r,g,b);
+     strokeWeight(4);
      noFill();
      ellipse(myX, myY, 25, 25);
+//     fill(0,0,255);
+//     ellipse(foodX,foodY,15,15);
+     
+//     if((myX == foodX) && (myY == foodY))
+//     {
+//       println("Move DAHH FOOOD");
+//       foodX = (int)(Math.random()*300)+50;
+//       foodY = (int)(Math.random()*300)+50;
+//     }
+     
+     noStroke();
+     fill(0,0,255);
+     ellipse(foodX,foodY,15,15);
+     
+     
+     
    }
+  void direction()
+  {
+    if (foodX < myX)
+    {
+      left = true;
+    }
+    else if(foodX > myX)
+    {
+       right = true;  
+    }
+    
+    if(foodY < myY)
+    {
+     up = true; 
+    }
+    else if(foodY > myY)
+    {
+      down = true;
+    }
+  
+  }
 
- }
+}
