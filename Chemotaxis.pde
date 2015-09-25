@@ -141,22 +141,21 @@ class Bacteria
      }
      
      
-
-     if(( myX == foodX) && (myY == foodY))
+     if(dist(myX,myY,foodX,foodY) < 10)
    {
       foodX = (int)(Math.random()*400)+50;
       foodY = (int)(Math.random()*400)+50;
       
-		if( w < 10)
-		{
-  			 w = w + 1;
- 		}
+    if( w < 10)
+    {
+         w = w + 1;
+     }
    
     }
      
      // if (((myX <= foodX - 10) || (myX >= foodX + 10)) && ((myY <= foodY - 10) || (myY >= foodY + 10)))
      // {
-     // 	foodX = (int)(Math.random()*400)+50;
+     //   foodX = (int)(Math.random()*400)+50;
      //    foodY = (int)(Math.random()*400)+50;
      // } 
      
@@ -168,25 +167,29 @@ class Bacteria
      
      if(keyPressed == true)
      {
-     	if((key =='w') &&(foodY >= 10))
-     	{
-     		foodY = foodY - 1;
-     	}
-     	if((key == 'a') && (foodX >= 10))
-     	{
-     		foodX = foodX - 1;
-     	}     	
-     	if((key == 's') && (foodY <= 490))
-     	{
-     		foodY = foodY + 1;
-     	}
-     	if((key == 'd') && (foodX <= 490))
-     	{
-     		foodX = foodX + 1;
-     	}
+       if((key =='w') &&(foodY >= 10))
+       {
+         foodY = foodY - 1;
+       }
+       if((key == 'a') && (foodX >= 10))
+       {
+         foodX = foodX - 1;
+       }       
+       if((key == 's') && (foodY <= 490))
+       {
+         foodY = foodY + 1;
+       }
+       if((key == 'd') && (foodX <= 490))
+       {
+         foodX = foodX + 1;
+       }
+       if(key == 'r')
+       {
+         w = 1;
+       }
 
-     }	
-     	
+     }  
+       
      
     
     
